@@ -10,25 +10,39 @@ public class ExampleLogLevels : MonoBehaviour
     public bool duplicateWithJson;
 
     private ILogger _logger;
+    private ILoggerFactory _loggerFactory; // Store the factory instance
+
 
     void Awake()
     {
-        using var loggerFactory = LoggerFactory.Create(logging =>
+        // Create and store the factory
+        _loggerFactory = LoggerFactory.Create(logging =>
         {
+            // Set the minimum level for all providers added HERE
             logging.SetMinimumLevel(minimumLevel);
-            logging.AddZLoggerUnityDebug(options => 
-                { 
-                    options.UsePlainTextFormatter();
-                    options.PrettyStacktrace = true;
+
+            // Add provider for plain text output to Unity Console
+            logging.AddZLoggerUnityDebug(options =>
+                {
+                    options.UsePlainTextFormatter(); // Use plain text
+                    options.PrettyStacktrace = true; // Format stack traces nicely
+                    // Optional: Configure scope/prefix/suffix for plain text if needed
+                    // options.UsePlainTextFormatter(cfg => { /* ... custom config ... */ });
                 }
             );
 
+            // Conditionally add a second provider for JSON output to Unity Console
             if (duplicateWithJson)
-                logging.AddZLoggerUnityDebug(options => { options.UseJsonFormatter(); });
+            {
+                logging.AddZLoggerUnityDebug(options => options.UseJsonFormatter());
+            }
         });
 
-        _logger = loggerFactory.CreateLogger("ZLoggerExample");
-        _logger.ZLogInformation($"Logger is created");
+        // Create the logger instance from the stored factory
+        _logger = _loggerFactory.CreateLogger("ZLoggerExample"); // Category name
+
+        // Log confirmation (will use the configured formatters)
+        _logger.ZLogInformation($"Logger created in Awake. Minimum Level: {minimumLevel}");
     }
 
     void Start()

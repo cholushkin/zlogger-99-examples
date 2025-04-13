@@ -256,6 +256,50 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!1 &874763255
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 874763257}
+  - component: {fileID: 874763256}
+  m_Layer: 0
+  m_Name: ExampleMinimalisticScope
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &874763256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 874763255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0345931dc9b7cdf458619ffefa49f782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &874763257
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 874763255}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.6793297, y: -2.9223766, z: 1.3663361}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1688909056
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,12 +311,12 @@ GameObject:
   - component: {fileID: 1688909057}
   - component: {fileID: 1688909058}
   m_Layer: 0
-  m_Name: ExampleLogLevels
+  m_Name: ExampleLoggingScopes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1688909057
 Transform:
   m_ObjectHideFlags: 0
@@ -297,14 +341,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1688909056}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d534a41554e476a4680d3c4587d8cc0d, type: 3}
+  m_Script: {fileID: 11500000, guid: c51d28d5c99902a49b2684d719d09fad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  duplicateWithJson: 0
   minimumLevel: 0
-  duplicateWithJson: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1688909057}
   - {fileID: 330585546}
+  - {fileID: 1688909057}
+  - {fileID: 874763257}
