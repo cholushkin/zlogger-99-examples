@@ -4,11 +4,11 @@ using Microsoft.Extensions.Logging;
 using ZLogger.Unity;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
-public class ZLoggerExample : MonoBehaviour
+public class ExampleLogLevels : MonoBehaviour
 {
     public LogLevel minimumLevel;
     public bool duplicateWithJson;
-    
+
     private ILogger _logger;
 
     void Awake()
@@ -16,20 +16,19 @@ public class ZLoggerExample : MonoBehaviour
         using var loggerFactory = LoggerFactory.Create(logging =>
         {
             logging.SetMinimumLevel(minimumLevel);
-            logging.AddZLoggerUnityDebug(options =>
-            {
-                options.UsePlainTextFormatter();
-            });
-            
-            if(duplicateWithJson)
-                logging.AddZLoggerUnityDebug(options =>
-                {
-                    options.UseJsonFormatter();
-                });
+            logging.AddZLoggerUnityDebug(options => 
+                { 
+                    options.UsePlainTextFormatter();
+                    options.PrettyStacktrace = true;
+                }
+            );
 
+            if (duplicateWithJson)
+                logging.AddZLoggerUnityDebug(options => { options.UseJsonFormatter(); });
         });
 
         _logger = loggerFactory.CreateLogger("ZLoggerExample");
+        _logger.ZLogInformation($"Logger is created");
     }
 
     void Start()

@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: 1688909057}
   - component: {fileID: 1688909058}
   m_Layer: 0
-  m_Name: ZLoggerExample
+  m_Name: ExampleLogLevels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -306,5 +306,5 @@ MonoBehaviour:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 330585546}
   - {fileID: 1688909057}
+  - {fileID: 330585546}
