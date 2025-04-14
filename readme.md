@@ -16,6 +16,7 @@ Gives you some impression what standard Unity log gives you.
 #### Example.01 - Basic Log Levels
 Gives you basic example on ZLogger log levels and formatters.
 
+[example.01 readme](Assets/Example.01 - Basic log levels/readme.md)
 
 #### Example.02 - Scopes
 
