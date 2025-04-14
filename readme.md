@@ -17,6 +17,11 @@ Gives you some impression what standard Unity log gives you.
 Gives you basic example on ZLogger log levels and formatters.
 
 
+#### Example.02 - Scopes
+
+
+#### Example.03 - File provider
+
 todo:
 - Logging Providers
   - Console
