@@ -20,6 +20,7 @@ todo:
 - Logging Providers
   - Console
   - File
+    - zip log
   - RollingFile
   - Stream 
   - In-Memory

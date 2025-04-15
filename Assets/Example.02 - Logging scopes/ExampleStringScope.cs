@@ -23,6 +23,10 @@ public class ExampleStringScope : MonoBehaviour
                 options.IncludeScopes = true;
                 options.UsePlainTextFormatter();
                 options.PrettyStacktrace = true;
+                options.UsePlainTextFormatter(formatter =>
+                {
+                    formatter.SetPrefixFormatter($"[scope length:{0}]", (in MessageTemplate template, in LogInfo info) => template.Format(info.ScopeState.Properties.Length));
+                });
             });
 
             // Configure json            
