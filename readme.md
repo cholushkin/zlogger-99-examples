@@ -8,8 +8,6 @@
 
 ## Examples
 
-## Examples 
-
 | Example | Description                                                   | Tags                  |
 |---------|---------------------------------------------------------------|-----------------------|
 | [**Example.00 – UnityLog**](Assets/Example.00%20-%20UnityLog) | Gives you some impression of what standard Unity logging provides. | –                     |
@@ -32,6 +30,8 @@ todo:
   - KeyNameMutator
   - MessagePack
   - Custom Formatter
+- json config / disable on build
+- scriptable object config
 - LogInfo
   - Message Meta
 - ZLoggerOptions
@@ -42,3 +42,4 @@ todo:
   - Unity decoraators
   - json configuration
   - uconsole
+  - little logger for separate gameobject + widget
