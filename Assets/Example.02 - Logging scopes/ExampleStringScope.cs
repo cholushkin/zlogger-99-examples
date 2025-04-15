@@ -4,10 +4,11 @@ using Microsoft.Extensions.Logging;
 using ZLogger.Unity;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
-public class ExampleScope : MonoBehaviour
+public class ExampleStringScope : MonoBehaviour
 {
-    private ILogger _logger;
-    private ILoggerFactory _loggerFactory; // Store the factory
+    public bool duplicateWithJson;
+    private ILogger _logger = null!;
+    private ILoggerFactory _loggerFactory = null!; // Store the factory
 
     void Awake()
     {
@@ -23,24 +24,24 @@ public class ExampleScope : MonoBehaviour
                 options.UsePlainTextFormatter();
                 options.PrettyStacktrace = true;
             });
-            
-            
-            // Configure json
-            logging.AddZLoggerUnityDebug(options =>
-            {
-                options.IncludeScopes = true;
-                options.UseJsonFormatter(); 
-            });
+
+            // Configure json            
+            if (duplicateWithJson)
+                logging.AddZLoggerUnityDebug(options =>
+                {
+                    options.IncludeScopes = true;
+                    options.UseJsonFormatter();
+                });
         });
 
         // Create the logger instance using the stored factory
         // Use the actual class name for the category
-        _logger = _loggerFactory.CreateLogger<ExampleScope>();
+        _logger = _loggerFactory.CreateLogger<ExampleStringScope>();
         // Or use a specific category name string: _logger = _loggerFactory.CreateLogger("MyExampleCategory");
 
         using (_logger.BeginScope("InitializationScope")) // Changed scope name for clarity
         {
-            _logger.ZLogInformation($"Logger setup complete."); 
+            _logger.ZLogInformation($"Logger setup complete.");
         }
     }
 
@@ -48,7 +49,6 @@ public class ExampleScope : MonoBehaviour
     {
         // Run example
         ExampleScopeBasic();
-        ExampleScopeWithState();
     }
 
     void ExampleScopeBasic()
@@ -63,31 +63,6 @@ public class ExampleScope : MonoBehaviour
             }
 
             _logger.ZLogInformation($"Order processed successfully.");
-        }
-    }
-    
-    void ExampleScopeWithState()
-    {
-        var playerId = 99;
-        var levelName = "QuantumCatNebula";
-
-        // Structured scope with an anonymous object as state
-        using (_logger.BeginScope(new { PlayerId = playerId, Level = levelName }))
-        {
-            _logger.ZLogInformation($"Player entered the level.");
-
-            DoLevelLoading();
-        
-            _logger.ZLogInformation($"Level initialization complete.");
-        }
-    }
-
-    void DoLevelLoading()
-    {
-        using (_logger.BeginScope("LevelLoadingPhase"))
-        {
-            _logger.ZLogDebug($"Loading assets...");
-            _logger.ZLogDebug($"Initializing systems...");
         }
     }
 }

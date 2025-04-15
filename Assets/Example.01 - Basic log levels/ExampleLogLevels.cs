@@ -9,8 +9,8 @@ public class ExampleLogLevels : MonoBehaviour
     public LogLevel minimumLevel;
     public bool duplicateWithJson;
 
-    private ILogger _logger;
-    private ILoggerFactory _loggerFactory; // Store the factory instance
+    private ILogger _logger = null!;
+    private ILoggerFactory _loggerFactory = null!; // Store the factory instance
 
 
     void Awake()
