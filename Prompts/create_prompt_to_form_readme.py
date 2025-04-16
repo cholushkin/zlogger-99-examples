@@ -3,9 +3,9 @@ import re # Import regex for cleaning filenames
 import sys # To check python version for f-strings potentially
 
 # --- Configuration ---
-src_dirs = [r"d:\projects\dev-my-sandbox\zlogger-sandbox\Assets\Example.03 - FileProvider"] # Use raw string for Windows paths
+src_dirs = [r"d:\projects\dev-my-sandbox\zlogger-sandbox\Assets\Example.04 - Streams"] # Use raw string for Windows paths
 file_extensions = [".cs"]  # Array of file extensions to include
-name_of_examples = "File Provider Examples" # Descriptive name for examples
+name_of_examples = "Stream Provider Examples" # Descriptive name for examples
 
 # --- Generate dynamic output filename ---
 # 1. Create a filename-safe version (lowercase, replace non-alphanumeric with '_')

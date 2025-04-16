@@ -25,7 +25,7 @@ public class ExampleStringScope : MonoBehaviour
                 options.PrettyStacktrace = true;
                 options.UsePlainTextFormatter(formatter =>
                 {
-                    formatter.SetPrefixFormatter($"[scope length:{0}]", (in MessageTemplate template, in LogInfo info) => template.Format(info.ScopeState.Properties.Length));
+                    formatter.SetPrefixFormatter($"[scope length:{0}]", (in MessageTemplate template, in LogInfo info) => template.Format(info.ScopeState?.Properties.Length));
                 });
             });
 
