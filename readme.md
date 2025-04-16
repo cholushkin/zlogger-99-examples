@@ -14,6 +14,7 @@
 | [**Example.01 – Basic Log Levels**](Assets/Example.01%20-%20Basic%20log%20levels) | Demonstrates ZLogger log levels and formatter configurations. | `#basic`, `#levels`    |
 | [**Example.02 – Logging Scopes**](Assets/Example.02%20-%20Logging%20scopes) | Logging with named and structured scopes. | `#scopes`, `#structured` |
 | [**Example.03 – File Provider**](Assets/Example.03%20-%20File%20provider) | Outputting logs to file via ZLogger file providers. | `#file`, `#provider`, `rolling` |
+| [**Example.04 – Streams**](Assets/Example.04%20-%20Streams) | Outputting logs to memory stream. | `#stream`, `#provider` |
 
 
 todo:
