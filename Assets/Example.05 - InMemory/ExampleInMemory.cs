@@ -11,8 +11,8 @@ using ILogger = Microsoft.Extensions.Logging.ILogger;
 // - Providing a mechanism to hook into ZLogger's log message processing pipeline, allowing custom actions on log events.
 public class InMemoryExample : MonoBehaviour
 {
-    private ILoggerFactory _loggerFactory;
-    private ILogger _logger;
+    private ILoggerFactory _loggerFactory = null!;
+    private ILogger _logger = null!;
     private List<string> _logMessages = new List<string>();
 
     void Start()
