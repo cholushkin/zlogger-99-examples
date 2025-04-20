@@ -16,17 +16,11 @@
 | [**Example.03 – File Provider**](Assets/Example.03%20-%20File%20provider) | Outputting logs to file via ZLogger file providers. | `#file`, `#provider`, `rolling` |
 | [**Example.04 – Streams**](Assets/Example.04%20-%20Streams) | Outputting logs to memory stream. | `#stream`, `#provider` |
 | [**Example.05 – InMemory**](Assets/Example.05%20-%20InMemory) | Using the InMemory provider. | `#inmemory`, `#provider` |
-| [**Example.06 – Processor**](Assets/Example.06%20-%20Processor) | Using custom log processors . | `#processor`, `#provider` |
+| [**Example.06 – Processor**](Assets/Example.06%20-%20Processor) | Using custom log processors. | `#processor`, `#provider` |
+| [**Example.07 – PlainTextFormatter**](Assets/Example.07%20-%20PlainTextFormatter) |  Adding scope information when using the PlainTextFormatter. | `#plaintext`, `#formatter` |
 
 
 todo:
-- Logging Providers
-  - Console
-  + File
-  + RollingFile
-  - Stream 
-  - In-Memory
-  - LogProcessor
 - Formatter configurations  
   - PlainText
   - JSON
