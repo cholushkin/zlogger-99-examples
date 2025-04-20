@@ -54,8 +54,5 @@ public class ExampleLogProcessor : MonoBehaviour
         // The logs will directly appear in the Unity Console thanks to our custom processor.
     }
 
-    void OnDestroy()
-    {
-        _loggerFactory?.Dispose();
-    }
+    void OnDestroy() => _loggerFactory?.Dispose();
 }
