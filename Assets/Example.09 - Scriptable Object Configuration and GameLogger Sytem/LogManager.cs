@@ -5,36 +5,36 @@ using Logging.Config;
 
 namespace Logging.Runtime
 {
-    public class Log : MonoBehaviour
+    public class LogManager : MonoBehaviour
     {
         [SerializeField]
         private LoggerConfiguration config;
-
         private static ILoggerFactory _loggerFactory = null!;
-        private ILogger _logger = null!;
+        public static LogManager Instance;
 
         void Awake()
         {
+            Instance = this;
             if (_loggerFactory == null && config != null)
             {
-                var logDir = Application.persistentDataPath;
-
                 _loggerFactory = LoggerFactory.Create(builder =>
                 {
-                    builder.SetMinimumLevel(LogLevel.Trace); // Global default
+                    builder.SetMinimumLevel(config.GlobalLogLevel);
 
                     foreach (var provider in config.Providers)
                     {
-                        if (provider != null && provider.Enable)
+                        if (provider != null && provider.Enabled)
                         {
-                            provider.Configure(builder, logDir);
+                            provider.Configure(builder, config);
                         }
                     }
                 });
             }
+        }
 
-            _logger = _loggerFactory.CreateLogger("ScriptableLogger");
-            _logger.LogInformation("Logger initialized via ScriptableObject configuration.");
+        public ILogger CreateLogger(string categoryName)
+        {
+            return _loggerFactory.CreateLogger(categoryName);
         }
     }
 }

@@ -9,9 +9,12 @@ namespace Logging.Config
     {
         public bool PrettyStacktrace = true;
 
-        public override void Configure(ILoggingBuilder builder, string logDirectory)
+        public override void Configure(ILoggingBuilder builder, LoggerConfiguration config)
         {
-            if (!Enable) return;
+            if (!Enabled) 
+                return;
+            
+            base.Configure(builder, config);
 
             builder.AddZLoggerUnityDebug(options =>
             {
@@ -19,7 +22,7 @@ namespace Logging.Config
                 options.PrettyStacktrace = PrettyStacktrace;
             });
 
-            ApplyFilters<ZLoggerUnityDebugLoggerProvider>(builder);
+            ApplyFilters<ZLoggerUnityDebugLoggerProvider>(builder, _config);
         }
     }
 }

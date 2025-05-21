@@ -12,8 +12,8 @@ public class ExampleMemoryStream : MonoBehaviour
 
     private ILogger _logger = null!;
     private ILoggerFactory _loggerFactory = null!;
-    private MemoryStream? _logMemoryStream = null!;
-    private StreamWriter? _streamWriter = null!;
+    private MemoryStream _logMemoryStream = null!;
+    private StreamWriter _streamWriter = null!;
 
     void Awake()
     {
