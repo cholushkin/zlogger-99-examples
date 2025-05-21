@@ -1,7 +1,7 @@
-# ðŸªµ  [ZLogger](https://github.com/Cysharp/ZLogger) Integration Guide and sandbox for Unity
+# [ZLogger](https://github.com/Cysharp/ZLogger) Integration Guide and sandbox for Unity
 ![project logo](doc-assets/repository-open-graph-cover.png)
 
-## ðŸ“¦ Install ZLogger
+## Install ZLogger
 
 - Use official instruction https://github.com/Cysharp/ZLogger/tree/master?tab=readme-ov-file#installation
 - You can follow commit messages from version history to see the affect of each step.
