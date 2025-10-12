@@ -56,8 +56,8 @@ public class ExampleLogLevels : MonoBehaviour
             Accepts structured messages or raw strings.
             Internally uses string formatting like string.Format(...).
             ❌ Downsides:
-            Allocates memory when interpolated strings or string.Format(...) are used.
-            Not GC-friendly in high-frequency logging.
+            - Allocates memory when interpolated strings or string.Format(...) are used.
+            - Not GC-friendly in high-frequency logging.
         */
         _logger.Log(LogLevel.Information, $"LogInformation");
         _logger.LogInformation($"LogInformation");
@@ -69,8 +69,8 @@ public class ExampleLogLevels : MonoBehaviour
             Uses ZString and UTF8 formatting for zero-alloc logging (when used correctly).
             Designed for high-throughput systems (games, servers, etc.).
             🚀 Benefits:
-            No GC allocations when using parameters properly.
-            Can log structured data without creating intermediate strings.
+            - No GC allocations when using parameters properly.
+            - Can log structured data without creating intermediate strings.
          */
         
         // https://devblogs.microsoft.com/dotnet/string-interpolation-in-c-10-and-net-6/

@@ -29,12 +29,15 @@ public class ExampleAvoidExpensive : MonoBehaviour
         _logger = _loggerFactory.CreateLogger("ExampleAvoidExpensiveZLogger");
 
 
-        _logger.ZLog(MessageLevel, $"Message with calculation {SuperExpensiveCalculation(CalculationTestValue)}", this); 
+        _logger.ZLog(MessageLevel, $"ZLogger Message with calculation {SuperExpensiveCalculation($"ZLOGGER {CalculationTestValue}")}", this); 
+        
+        // this one will still do interpolation regardless of MinimumLevel. Don't use it!
+        _logger.Log(MessageLevel, $"Logger Message with calculation {SuperExpensiveCalculation($"LOGGER {CalculationTestValue}")}", this);
     }
 
-    int SuperExpensiveCalculation(int a)
+    string SuperExpensiveCalculation(string id)
     {
-        var obj = new GameObject($"Heavy calculation for {a}");
-        return a;
+        var obj = new GameObject($"Heavy calculation for: '{id}'");
+        return id;
     }
 }
