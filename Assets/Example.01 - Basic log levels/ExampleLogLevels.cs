@@ -72,6 +72,8 @@ public class ExampleLogLevels : MonoBehaviour
             No GC allocations when using parameters properly.
             Can log structured data without creating intermediate strings.
          */
+        
+        // https://devblogs.microsoft.com/dotnet/string-interpolation-in-c-10-and-net-6/
 
         _logger.ZLogInformation($"LogInformation");
         _logger.ZLogTrace($"This is a TRACE log.");

@@ -36,9 +36,9 @@ public class UnityLogExample : MonoBehaviour
         Debug.Log("Only logs in the editor.");
 #endif
 
-        // ---------- DRAWING IN THE EDITOR ----------
-        Debug.DrawLine(Vector3.zero, Vector3.one * 10, Color.red, 5.0f); // Visual debugging
-
+        // ---------- CUSTOM TAG ----------
+        Debug.unityLogger.Log("SYSTEM", "Tagged log message.");
+        
         // ---------- ADVANCED LOGGER ----------
         var logger = new Logger(Debug.unityLogger.logHandler);
         logger.logEnabled = true;
@@ -47,9 +47,9 @@ public class UnityLogExample : MonoBehaviour
         logger.Log(LogType.Log, "This will NOT appear.");
         logger.Log(LogType.Warning, "This is a filtered warning.");
         logger.Log(LogType.Error, "This is a filtered error.");
+        
+        Debug.unityLogger.Log("SYSTEM", "Tagged log message 2."); // Unity logger still doesn't have filter
 
-        // ---------- CUSTOM TAG ----------
-        Debug.unityLogger.Log("SYSTEM", "Tagged log message.");
 
     }
 }
