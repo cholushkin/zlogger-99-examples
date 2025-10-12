@@ -26,7 +26,7 @@ public class ExampleFileProviderBasic : MonoBehaviour
     // Internal fields
     private ILogger _logger = null!;
     private ILoggerFactory _loggerFactory = null!;
-    private string? _fullLogPath = null; // To store the calculated full path
+    private string _fullLogPath = null!; // To store the calculated full path
 
 
     private string PrepareLogFileAndGetPath(string fileNameOnly, FileWriteMode mode)

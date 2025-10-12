@@ -7,7 +7,7 @@ public static class ScopeFormatter
     // Otherwise, prefer local instances or thread-local storage.
     static readonly StringBuilder _sharedStringBuilder = new StringBuilder(128);
 
-    public static string FormatScope(LogScopeState? scopeState)
+    public static string FormatScope(LogScopeState scopeState)
     {
         if (scopeState == null || scopeState.IsEmpty)
             return string.Empty;
