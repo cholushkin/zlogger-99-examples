@@ -43,6 +43,4 @@ public class ExamplePlainTextFormatter : MonoBehaviour
             _logger.ZLogWarning($"Order received.");
         }
     }
-
-    void OnDestroy() => _loggerFactory?.Dispose();
 }

@@ -47,12 +47,10 @@ public class ExampleLogProcessor : MonoBehaviour
         _logger = _loggerFactory.CreateLogger<ExampleLogProcessor>();
 
         // 4. Log some messages
-        _logger.LogInformation("This is an information message using LogProcessor.");
-        _logger.LogWarning("This is a warning message via LogProcessor.");
-        _logger.LogError("This is an error message processed by LogProcessor.");
+        _logger.ZLogInformation($"This is an information message using LogProcessor.");
+        _logger.ZLogWarning($"This is a warning message via LogProcessor.");
+        _logger.ZLogError($"This is an error message processed by LogProcessor.");
 
         // The logs will directly appear in the Unity Console thanks to our custom processor.
     }
-
-    void OnDestroy() => _loggerFactory?.Dispose();
 }

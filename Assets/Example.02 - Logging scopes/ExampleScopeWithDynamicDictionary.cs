@@ -59,14 +59,10 @@ public class ExampleScopeWithDynamicDictionary : MonoBehaviour
 
         using (_logger.BeginScope(scopeState))
         {
+            scopeState["action"] = "contextual action";
             _logger.ZLogInformation($"User performed a contextual action.");
         }
 
         _logger.ZLogInformation($"This is outside of dynamic scope.");
-    }
-
-    void OnDestroy()
-    {
-        _loggerFactory?.Dispose();
     }
 }

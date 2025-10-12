@@ -1,46 +1,38 @@
 using System;
+using System.Runtime.CompilerServices;
 using Logging.Runtime;
 using Microsoft.Extensions.Logging;
-
+using ZLogger;
 
 namespace Example09
 {
     [Serializable]
     public class Logger
     {
-        // - lazy interpolation
-        // - local per logger level
-        // - local enabled flag
-        // - lazy get  instance of logmanager   
-        public bool LocalIsEnabled;
-        public string CategoryName;
-        public LogLevel LocalLogLevel;
+        public bool LocalIsEnabled = true;
+        public string CategoryName = "";
+        public LogLevel LocalLogLevel = LogLevel.Information;
+
         protected ILogger? _logger;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected ILogger LazyGetInstance()
+            => _logger ??= LogManager.Instance.CreateLogger(CategoryName);
 
-        public virtual void Log(LogLevel logLevel, Func<string> messageFactory)
+        private const LogLevel None = (LogLevel)(-1);
+
+        // 1️⃣ Return actual ILogger instance
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public ILogger Instance()
+            => LazyGetInstance();
+
+        // 2️⃣ Local log-level check: returns valid level or sentinel
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public LogLevel Level(LogLevel requestedLevel)
         {
-            if (!LocalIsEnabled || logLevel < LocalLogLevel)
-                return;
-
-            LazyGetInstance();
-
-            if (_logger != null && _logger.IsEnabled(logLevel)) // also checks provider-level filters
-            {
-                _logger.Log(logLevel, messageFactory());
-            }
+            if (!LocalIsEnabled || requestedLevel < LocalLogLevel)
+                return None; // disables ZLogger handler creation
+            return requestedLevel;
         }
-    
-        public void Info(Func<string> msg) => Log(LogLevel.Information, msg);
-        public void Warn(Func<string> msg) => Log(LogLevel.Warning, msg);
-        public void Error(Func<string> msg) => Log(LogLevel.Error, msg);
-        public void Debug(Func<string> msg) => Log(LogLevel.Debug, msg);
-        public void Trace(Func<string> msg) => Log(LogLevel.Trace, msg);
-
-        protected void LazyGetInstance()
-        {
-            if(_logger == null)
-                _logger = LogManager.Instance.CreateLogger(CategoryName);
-        }
-    }    
+    }
 }

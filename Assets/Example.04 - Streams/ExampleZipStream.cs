@@ -8,24 +8,50 @@ using ILogger = Microsoft.Extensions.Logging.ILogger;
 public class ExampleZipStream : MonoBehaviour
 {
     [Header("Logging Settings")]
+    [Tooltip("Compressed log file name (will be created as .gz)")]
     public string compressedLogFileName = "compressed_logs.gz";
+
+    [Tooltip("Minimum logging level to record.")]
     public LogLevel minimumLevel = LogLevel.Debug;
+
+    [Tooltip("If true, writes to Unity project's Logs/ folder instead of persistent data path. Only in EDITOR")]
+    public bool writeToProjectLogFolder = false;
 
     private ILogger _logger = null!;
     private ILoggerFactory _loggerFactory = null!;
     private FileStream _fileStream = null!;
     private GZipStream _gzipStream = null!;
+    private string _finalPath = string.Empty;
 
     void Awake()
     {
         try
         {
-            // --- Create the compressed file stream ---
-            string fullPath = Path.Combine(Application.persistentDataPath, compressedLogFileName);
-            _fileStream = new FileStream(fullPath, FileMode.Create, FileAccess.Write, FileShare.None);
+            // --- Determine destination path ---
+            if (writeToProjectLogFolder)
+            {
+#if UNITY_EDITOR
+                // In Editor, go up from Assets to project root and add "Logs/"
+                string projectRoot = Path.GetFullPath(Path.Combine(Application.dataPath, ".."));
+                string logDir = Path.Combine(projectRoot, "Logs");
+                Directory.CreateDirectory(logDir);
+                _finalPath = Path.Combine(logDir, compressedLogFileName);
+#else
+                // In builds, fall back to persistent data
+                _finalPath = Path.Combine(Application.persistentDataPath, compressedLogFileName);
+#endif
+            }
+            else
+            {
+                // Default persistent path
+                _finalPath = Path.Combine(Application.persistentDataPath, compressedLogFileName);
+            }
+
+            // --- Create file and wrap it in a GZip stream ---
+            _fileStream = new FileStream(_finalPath, FileMode.Create, FileAccess.Write, FileShare.None);
             _gzipStream = new GZipStream(_fileStream, CompressionMode.Compress, leaveOpen: false);
 
-            // --- Initialize logger factory with compressed stream ---
+            // --- Configure ZLogger factory ---
             _loggerFactory = LoggerFactory.Create(builder =>
             {
                 builder.SetMinimumLevel(minimumLevel);
@@ -36,11 +62,11 @@ public class ExampleZipStream : MonoBehaviour
             });
 
             _logger = _loggerFactory.CreateLogger<ExampleZipStream>();
-            _logger.ZLogInformation($"Compressed logger initialized.");
+            _logger.ZLogInformation($"Compressed logger initialized at: {_finalPath}");
         }
         catch (System.Exception ex)
         {
-            Debug.LogError($"[{this.GetType().Name}] Logger initialization failed: {ex.Message}");
+            Debug.LogError($"[{nameof(ExampleZipStream)}] Logger initialization failed: {ex.Message}");
         }
     }
 
@@ -63,11 +89,11 @@ public class ExampleZipStream : MonoBehaviour
             _gzipStream?.Dispose();
             _fileStream?.Dispose();
 
-            Debug.Log($"Compressed log written to: {Path.Combine(Application.persistentDataPath, compressedLogFileName)}");
+            Debug.Log($"Compressed log written to: {_finalPath}");
         }
         catch (System.Exception ex)
         {
-            Debug.LogError($"[{this.GetType().Name}] Cleanup error: {ex.Message}");
+            Debug.LogError($"[{nameof(ExampleZipStream)}] Cleanup error: {ex.Message}");
         }
     }
 }

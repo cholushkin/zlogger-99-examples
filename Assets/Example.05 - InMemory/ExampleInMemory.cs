@@ -34,8 +34,8 @@ public class InMemoryExample : MonoBehaviour
         _logger = _loggerFactory.CreateLogger<InMemoryExample>();
 
         // 3. Log some messages
-        _logger.LogInformation("This is an information message.");
-        _logger.LogWarning("This is a warning message.");
+        _logger.ZLogInformation($"This is an information message.");
+        _logger.ZLogWarning($"This is a warning message.");
 
         // 4. Demonstrate accessing the messages
         DisplayInMemoryLogs();
@@ -48,10 +48,5 @@ public class InMemoryExample : MonoBehaviour
         {
             Debug.Log(log);
         }
-    }
-
-    void OnDestroy()
-    {
-        _loggerFactory?.Dispose();
     }
 }

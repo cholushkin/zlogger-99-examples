@@ -74,8 +74,10 @@ public class ExampleLogLevels : MonoBehaviour
          */
         
         // https://devblogs.microsoft.com/dotnet/string-interpolation-in-c-10-and-net-6/
+        // $"..." is the only correct way to pass a literal string to ZLogger.
+        // You can safely do this even if no placeholders exist — it behaves just like a normal string literal but satisfies the handler signature.
 
-        _logger.ZLogInformation($"LogInformation");
+        _logger.ZLogInformation($"LogInformation"); // Or: _logger.ZLog(LogLevel.Information, $"LogInformation");
         _logger.ZLogTrace($"This is a TRACE log.");
         _logger.ZLogDebug($"This is a DEBUG log.");
         _logger.ZLogWarning($"This is a WARNING log.");
