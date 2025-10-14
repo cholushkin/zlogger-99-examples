@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &82084787
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -426,6 +426,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 84e3331c90cf86549beacee14f2ad616, type: 2}
+  IsLoggingEnabled: 1
 --- !u!1 &2019142496
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,7 +462,9 @@ MonoBehaviour:
   Logger:
     LocalIsEnabled: 1
     CategoryName: Gameplay
-    LocalLogLevel: 2
+    LocalLogLevel: 0
+  MonsterId: 42
+  HitPoints: 2222
 --- !u!65 &2019142498
 BoxCollider:
   m_ObjectHideFlags: 0

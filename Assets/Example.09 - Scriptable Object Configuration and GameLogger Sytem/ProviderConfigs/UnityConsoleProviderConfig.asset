@@ -10,15 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c83bb4a27f06ec4da3572b53828ca9d, type: 3}
-  m_Name: UnityDebugLoggerConfig
+  m_Name: UnityConsoleProviderConfig
   m_EditorClassIdentifier: 
-  Enabled: 1
-  RespectGlobalLevelInFilter: 1
-  Filters:
-  - ProviderTypeName: 
-    Category: Gameplay
-    MinLevel: 1
-  - ProviderTypeName: 
-    Category: 
+  CategoryFilters:
+  - CategoryPrefix: Gameplay
     MinLevel: 0
   PrettyStacktrace: 1
+  UsePlainTextFormatter: 1
+  TimestampFormat: HH:mm:ss.fff

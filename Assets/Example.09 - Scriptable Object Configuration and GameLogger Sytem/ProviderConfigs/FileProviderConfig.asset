@@ -10,11 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a925a1f152167144f907acd34c4e75f5, type: 3}
-  m_Name: FileLoggerConfig
+  m_Name: FileProviderConfig
   m_EditorClassIdentifier: 
-  Enable: 1
-  Filters:
-  - ProviderTypeName: 
-    Category: 
+  CategoryFilters:
+  - CategoryPrefix: Gameplay
     MinLevel: 0
-  FileName: app.log
+  FileMode: 0
+  PathOrDirectory: Logs/app.log
+  BaseFileName: app
+  RollingInterval: 3
+  RollingSizeKB: 10240
+  UsePlainTextFormatter: 1

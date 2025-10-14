@@ -44,6 +44,7 @@ public class ExamplePerProviderFiltering : MonoBehaviour
         _logger.ZLogInformation($"INFO: Visible only in Unity Console.");
         _logger.ZLogWarning($"WARNING: Visible in Unity Console.");
         _logger.ZLogError($"CRITICAL: Visible in both Unity Console and log file.");
+        _logger.ZLogCritical($"CRITICAL: Visible in both Unity Console and log file.");
 
         Debug.Log($"Writing log to {Application.persistentDataPath}");
     }
