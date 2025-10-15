@@ -28,6 +28,8 @@ namespace Logging.Runtime
                 _loggerFactory = NullLoggerFactory.Instance;
                 return;
             }
+            
+            Debug.Log($"Initializing LogManager using config: {config.name}");
 
             _loggerFactory = LoggerFactory.Create(builder =>
             {
@@ -44,6 +46,7 @@ namespace Logging.Runtime
                 // ===== Global rules =====
                 // Hard floor (non-overridable clamp)
                 builder.AddFilter((category, level) => level >= config.HardFloor);
+                
                 // Default soft minimum
                 builder.SetMinimumLevel(config.DefaultMin);
 

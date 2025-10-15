@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Logging;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Serialization;
 using ZLogger;
@@ -35,16 +36,25 @@ public class Monster : MonoBehaviour
     // Context Menu actions (right–click the component header)
     // ─────────────────────────────────────────────
 
-    [ContextMenu("Monster/Log Trace")]
+    [Button("Log Trace")]
     void CM_LogTrace()
     {
+        Debug.Log($"ENABLED? Trace={Logger.Instance().IsEnabled(LogLevel.Trace)}, " +
+                  $"Debug={Logger.Instance().IsEnabled(LogLevel.Debug)}, " +
+                  $"Info={Logger.Instance().IsEnabled(LogLevel.Information)}, " +
+                  $"Warn={Logger.Instance().IsEnabled(LogLevel.Warning)}, " +
+                  $"Error={Logger.Instance().IsEnabled(LogLevel.Error)}");
+
+        
+        if(Logger.Instance().IsEnabled(LogLevel.Trace))
+            Debug.Log("enabled check is true");
         Logger.Instance().ZLog(
             Logger.Level(LogLevel.Trace),
             $"[Trace] Monster '{MonsterId}' tick at {Time.frameCount}",
             this);
     }
 
-    [ContextMenu("Monster/Log Debug (skips heavy work when filtered)")]
+    [Button("Log Debug (skips heavy work when filtered)")]
     void CM_LogDebugHeavy()
     {
         // If current minimum level is ≥ Information, ZLogger’s handler will short-circuit
@@ -55,7 +65,7 @@ public class Monster : MonoBehaviour
             this);
     }
 
-    [ContextMenu("Monster/Log Information")]
+    [Button("Log Information")]
     void CM_LogInformation()
     {
         Logger.Instance().ZLog(
@@ -64,7 +74,7 @@ public class Monster : MonoBehaviour
             this);
     }
 
-    [ContextMenu("Monster/Log Warning (took damage)")]
+    [Button("Log Warning (took damage)")]
     void CM_LogWarning()
     {
         int damage = Random.Range(5, 20);
@@ -76,7 +86,7 @@ public class Monster : MonoBehaviour
             this);
     }
 
-    [ContextMenu("Monster/Log Error (simulate failure)")]
+    [Button("Log Error (simulate failure)")]
     void CM_LogError()
     {
         try
@@ -93,7 +103,7 @@ public class Monster : MonoBehaviour
         }
     }
 
-    [ContextMenu("Monster/Log Critical (HP=0)")]
+    [Button("Log Critical (HP=0)")]
     void CM_LogCritical()
     {
         HitPoints = 0;
