@@ -81,6 +81,59 @@ namespace Logging.Config
         [Tooltip("Enabled log providers and their local rules.")]
         public List<ProviderConfiguration> Providers = new();
 
+
+        [Button]
+        private void PrintLoggerConfiguration()
+        {
+            Debug.Log("=== Logger Configuration ===");
+
+            // Global settings
+            string globalInfo = $"Global Hard Floor: {HardFloor}, Global Default Min Level: {DefaultMin}";
+            Debug.Log(globalInfo);
+
+            if (Providers == null || Providers.Count == 0)
+            {
+                Debug.Log("No providers configured.");
+                return;
+            }
+
+            foreach (var providerConfig in Providers)
+            {
+                if (providerConfig == null)
+                {
+                    Debug.LogWarning("Encountered a null Provider Configuration entry. Skipping...");
+                    continue;
+                }
+
+                string providerName = providerConfig.Provider?.name ?? "<null>";
+                var sb = new System.Text.StringBuilder();
+
+                sb.AppendLine($"--- Provider: {providerName} ---");
+                sb.AppendLine($"Hard Floor: {providerConfig.HardFloor}, Default Min: {providerConfig.DefaultMin}, Solo: {providerConfig.Solo}, Mute: {providerConfig.Mute}");
+
+                if (providerConfig.Provider != null && providerConfig.Provider.CategoryFilters != null &&
+                    providerConfig.Provider.CategoryFilters.Count > 0)
+                {
+                    sb.AppendLine("Category Filters:");
+                    foreach (var rule in providerConfig.Provider.CategoryFilters)
+                    {
+                        if (rule == null) continue;
+                        string prefix = string.IsNullOrEmpty(rule.CategoryPrefix) ? "<empty>" : rule.CategoryPrefix;
+                        sb.AppendLine($"  Prefix: {prefix}, MinLevel: {rule.MinLevel}, Solo: {rule.Solo}, Mute: {rule.Mute}");
+                    }
+                }
+                else
+                {
+                    sb.AppendLine("No category filters defined.");
+                }
+
+                Debug.Log(sb.ToString());
+            }
+
+            Debug.Log("=== End of Logger Configuration ===");
+        }
+
+
 #if UNITY_EDITOR
         void OnValidate()
         {

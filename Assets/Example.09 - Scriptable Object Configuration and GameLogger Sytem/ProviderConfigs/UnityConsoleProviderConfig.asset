@@ -16,8 +16,8 @@ MonoBehaviour:
   - CategoryPrefix: Gameplay
     MinLevel: 2
     Solo: 0
-    Mute: 0
+    Mute: 1
   - CategoryPrefix: Gameplay.Monster
     MinLevel: 4
     Solo: 0
-    Mute: 0
+    Mute: 1
