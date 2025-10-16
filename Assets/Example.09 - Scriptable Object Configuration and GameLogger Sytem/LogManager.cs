@@ -28,7 +28,7 @@ namespace Logging.Runtime
                 _loggerFactory = NullLoggerFactory.Instance;
                 return;
             }
-            
+
             Debug.Log($"Initializing LogManager using config: {config.name}");
 
             _loggerFactory = LoggerFactory.Create(builder =>
@@ -46,7 +46,7 @@ namespace Logging.Runtime
                 // ===== Global rules =====
                 // Hard floor (non-overridable clamp)
                 builder.AddFilter((category, level) => level >= config.HardFloor);
-                
+
                 // Default soft minimum
                 builder.SetMinimumLevel(config.DefaultMin);
 
@@ -60,12 +60,22 @@ namespace Logging.Runtime
                 // ===== Configure each provider =====
                 foreach (var p in enabled)
                 {
-                    // 1) Provider-wide floors FIRST (typed; no reflection)
-                    p.Provider.SetProviderWideFloor(builder, p.HardFloor);
-                    if (p.DefaultMin > config.DefaultMin)
-                        p.Provider.SetProviderWideFloor(builder, p.DefaultMin);
+                    // 1) Determine the *effective* floor for this provider.
+                    //    Global HardFloor is absolute — cannot be lowered by provider configs.
+                    var effectiveFloor = config.HardFloor;
 
-                    // 2) Register provider + apply provider-scoped category filters
+                    // Provider HardFloor can only raise the threshold (never lower global).
+                    if (p.HardFloor > effectiveFloor)
+                        effectiveFloor = p.HardFloor;
+
+                    // Provider DefaultMin can only raise (soft clamp) relative to global DefaultMin.
+                    if (p.DefaultMin > config.DefaultMin && p.DefaultMin > effectiveFloor)
+                        effectiveFloor = p.DefaultMin;
+
+                    // 2) Apply the computed effective floor.
+                    p.Provider.SetProviderWideFloor(builder, effectiveFloor);
+
+                    // 3) Register provider + apply provider-scoped category filters
                     //    (base.Configure calls AddProvider() then ApplyProviderCategoryFilters())
                     p.Provider.Configure(builder, config);
                 }

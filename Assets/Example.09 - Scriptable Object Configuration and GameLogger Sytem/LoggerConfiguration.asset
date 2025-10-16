@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ae1b37db1c873b40a501d5e11a2c1ba, type: 3}
   m_Name: LoggerConfiguration
   m_EditorClassIdentifier: 
-  HardFloor: 4
-  DefaultMin: 0
+  HardFloor: 3
+  DefaultMin: 4
   Providers:
   - Provider: {fileID: 11400000, guid: dba6ea196eab5d64c908a26512bb41ad, type: 2}
     HardFloor: 0
-    DefaultMin: 0
+    DefaultMin: 2
     Solo: 0
-    Mute: 0
+    Mute: 1
   - Provider: {fileID: 11400000, guid: 36109f2c5b2e5c946a0ab1d0301a1c28, type: 2}
     HardFloor: 0
-    DefaultMin: 0
+    DefaultMin: 2
     Solo: 0
     Mute: 0

@@ -461,7 +461,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Logger:
     LocalIsEnabled: 1
-    CategoryName: Gameplay
+    CategoryName: Gameplay.Monster
     LocalLogLevel: 0
   MonsterId: 42
   HitPoints: 2222

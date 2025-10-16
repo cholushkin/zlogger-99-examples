@@ -39,15 +39,6 @@ public class Monster : MonoBehaviour
     [Button("Log Trace")]
     void CM_LogTrace()
     {
-        Debug.Log($"ENABLED? Trace={Logger.Instance().IsEnabled(LogLevel.Trace)}, " +
-                  $"Debug={Logger.Instance().IsEnabled(LogLevel.Debug)}, " +
-                  $"Info={Logger.Instance().IsEnabled(LogLevel.Information)}, " +
-                  $"Warn={Logger.Instance().IsEnabled(LogLevel.Warning)}, " +
-                  $"Error={Logger.Instance().IsEnabled(LogLevel.Error)}");
-
-        
-        if(Logger.Instance().IsEnabled(LogLevel.Trace))
-            Debug.Log("enabled check is true");
         Logger.Instance().ZLog(
             Logger.Level(LogLevel.Trace),
             $"[Trace] Monster '{MonsterId}' tick at {Time.frameCount}",

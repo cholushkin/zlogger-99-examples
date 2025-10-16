@@ -16,15 +16,17 @@ namespace Logging.Config
     • Global DefaultMin — soft default when nothing more specific applies (SetMinimumLevel).
     • Per-provider HardFloor — clamp for that provider (AddFilter<ThatProvider>).
     • Per-provider DefaultMin — effective only if STRICTER than Global DefaultMin (otherwise ignored).
-    • Solo — if any provider has Solo = true, only Solo providers are enabled.
-    • Mute — provider is skipped entirely.
+    • Provider Solo — if any provider has Solo = true, only those providers are enabled.
+    • Provider Mute — provider is skipped entirely.
+    • Category Solo — within a provider, if any category rule has Solo = true, only those categories are active for that provider.
+    • Category Mute — within a provider, mutes that specific prefix entirely.
 
     Precedence (strongest → weakest)
     1) Global HardFloor
     2) Provider HardFloor
     3) Provider DefaultMin (only if > Global DefaultMin)
     4) Global DefaultMin
-    5) Category/prefix filters (can only tighten for their prefixes)
+    5) Category/prefix filters (Solo/Mute/MinLevel within each provider)
 
     Rule of thumb:
     AddFilter is final for that scope. SetMinimumLevel is a fallback.
@@ -56,21 +58,20 @@ namespace Logging.Config
             public bool Mute;
         }
 
-        // Single, concise guide at the top
         [InfoBox(
             "•Global HardFloor is an ABSOLUTE clamp; nothing below it passes.\n" +
             "•Global DefaultMin is a soft default used when nothing more specific applies.\n" +
             "•Provider HardFloor clamps ALL categories for that provider.\n" +
             "•Provider DefaultMin takes effect ONLY if it is STRICTER than Global DefaultMin.\n" +
-            "•Category filters (by prefix) can only TIGHTEN further for those prefixes.\n" +
-            "•Solo: if any provider has Solo=true, only Solo providers are enabled.\n" +
+            "•Category filters (by prefix) can further TIGHTEN or MUTE categories inside the provider.\n" +
+            "•Solo flags (provider or category) isolate only selected outputs.\n" +
             "\n" +
-            "Tips:\n"+ 
+            "Tips:\n" +
             "•Keep DefaultMin ≥ HardFloor (global & per-provider).\n" +
             "•Use Provider DefaultMin sparingly; prefer category filters.\n" +
             "•In production, raise Global HardFloor (Warning/Error) and keep file provider stricter than console.\n" +
             "•Apply provider-wide floors BEFORE category rules (done in LogManager).\n"
-            )]
+        )]
         [Label("Global Hard Floor")]
         public LogLevel HardFloor;
 
