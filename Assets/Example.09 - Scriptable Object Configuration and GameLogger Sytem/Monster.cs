@@ -8,7 +8,7 @@ public class Monster : MonoBehaviour
 {
     public Example09.Logger Logger;
     public int MonsterId;
-    [FormerlySerializedAs("hitPoints")] public int HitPoints;
+    public int HitPoints;
 
     void Start()
     {
